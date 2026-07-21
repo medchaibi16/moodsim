@@ -1,22 +1,26 @@
 using MoodSimBackend.Models;
 using System;
+using System.Collections.Generic;
 
 namespace MoodSimBackend.Services
 {
-    /// <summary>
-    /// Lightweight Observation Service for Simulation
-    /// Does NOT run heavy AI models (Wav2Vec2, VideoMAE, AST)
-    /// Uses precomputed clip data and simulated location/time
-    /// </summary>
     public class ObservationService
     {
         private readonly RoomMap _roomMap;
         private int _currentX;
         private int _currentY;
         private string _currentPosture;
-
-        // Store the current observation
         private Observation _currentObservation;
+
+        // Sensor state
+        private bool _tvOn;
+        private bool _laptopOn;
+        private bool _phoneActive;
+        private float _voiceIntensity;
+        private float _walkingSpeed;
+        private bool _doorSlamDetected;
+        private float _doorSlamIntensity;
+        private bool _isAlone;
 
         public ObservationService(RoomMap roomMap)
         {
@@ -34,6 +38,26 @@ namespace MoodSimBackend.Services
             _currentPosture = posture;
         }
 
+        public void UpdateSensors(
+            bool tvOn = false,
+            bool laptopOn = false,
+            bool phoneActive = false,
+            float voiceIntensity = 0f,
+            float walkingSpeed = 0f,
+            bool doorSlamDetected = false,
+            float doorSlamIntensity = 0f,
+            bool isAlone = true)
+        {
+            _tvOn = tvOn;
+            _laptopOn = laptopOn;
+            _phoneActive = phoneActive;
+            _voiceIntensity = voiceIntensity;
+            _walkingSpeed = walkingSpeed;
+            _doorSlamDetected = doorSlamDetected;
+            _doorSlamIntensity = doorSlamIntensity;
+            _isAlone = isAlone;
+        }
+
         public Observation CollectObservation(
             string detectedEmotion = null,
             float emotionConfidence = 0f,
@@ -43,22 +67,27 @@ namespace MoodSimBackend.Services
             bool isClip = false,
             string clipFilename = null)
         {
-            // Get location from room map
             var room = _roomMap.GetRoomFromPosition(_currentX, _currentY);
 
             var observation = new Observation
             {
-                // From Location (simulated)
                 PositionX = _currentX,
                 PositionY = _currentY,
                 CurrentRoom = room ?? "unknown",
                 Posture = _currentPosture,
+                Timestamp = DateTime.Now,
 
-                // From Time
-                Timestamp = DateTime.Now
+                // Sensor data
+                TvOn = _tvOn,
+                LaptopOn = _laptopOn,
+                PhoneActive = _phoneActive,
+                VoiceIntensity = _voiceIntensity,
+                WalkingSpeed = _walkingSpeed,
+                DoorSlamDetected = _doorSlamDetected,
+                DoorSlamIntensity = _doorSlamIntensity,
+                IsAlone = _isAlone
             };
 
-            // If it's a clip event, use precomputed data
             if (isClip && !string.IsNullOrEmpty(dominantEmotion))
             {
                 observation.DetectedEmotion = dominantEmotion;
@@ -71,7 +100,6 @@ namespace MoodSimBackend.Services
             }
             else if (!string.IsNullOrEmpty(detectedEmotion))
             {
-                // For regular events, use the emotion from the user's schedule
                 observation.DetectedEmotion = detectedEmotion;
                 observation.EmotionConfidence = emotionConfidence;
                 observation.AudioEmotion = detectedEmotion;
@@ -81,7 +109,6 @@ namespace MoodSimBackend.Services
             }
             else
             {
-                // Default: neutral
                 observation.DetectedEmotion = "neutral";
                 observation.EmotionConfidence = 0.5f;
                 observation.AudioEmotion = "neutral";
@@ -94,19 +121,8 @@ namespace MoodSimBackend.Services
             return observation;
         }
 
-        public Observation GetCurrentObservation()
-        {
-            return _currentObservation;
-        }
-
-        public string GetCurrentRoom()
-        {
-            return _roomMap.GetRoomFromPosition(_currentX, _currentY) ?? "unknown";
-        }
-
-        public (int X, int Y, string Posture) GetCurrentLocation()
-        {
-            return (_currentX, _currentY, _currentPosture);
-        }
+        public Observation GetCurrentObservation() => _currentObservation;
+        public string GetCurrentRoom() => _roomMap.GetRoomFromPosition(_currentX, _currentY) ?? "unknown";
+        public (int X, int Y, string Posture) GetCurrentLocation() => (_currentX, _currentY, _currentPosture);
     }
 }

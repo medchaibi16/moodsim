@@ -3,10 +3,6 @@ using System.Collections.Generic;
 
 namespace MoodSimBackend.Models
 {
-    /// <summary>
-    /// Observation from the environment (simplified for simulation)
-    /// No live AI processing — uses precomputed clip data
-    /// </summary>
     public class Observation
     {
         // === Emotion from Clip (precomputed) ===
@@ -30,6 +26,17 @@ namespace MoodSimBackend.Models
         public DateTime Timestamp { get; set; }
         public int Hour => Timestamp.Hour;
         public string TimeOfDay => GetTimeOfDay();
+
+        // === NEW: Sensor Data for Activity Guessing ===
+        public bool TvOn { get; set; }
+        public bool LaptopOn { get; set; }
+        public bool PhoneActive { get; set; }
+        public float VoiceIntensity { get; set; } // 0.0 - 1.0
+        public float WalkingSpeed { get; set; }   // 0.0 - 1.0
+        public string WalkingPattern { get; set; } // "steady", "pacing", "erratic", "slow"
+        public bool DoorSlamDetected { get; set; }
+        public float DoorSlamIntensity { get; set; }
+        public bool IsAlone { get; set; }
 
         // Helper method
         private string GetTimeOfDay()

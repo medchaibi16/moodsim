@@ -32,7 +32,7 @@ namespace MoodSimBackend.Services
             _observationService = new ObservationService(new RoomMap());
         }
 
-        public SimulationResult Run()
+            public SimulationResult Run()
         {
             var currentTime = new DateTime(2026, 1, 1, _startHour, 0, 0);
             var endTime = new DateTime(2026, 1, 1, _endHour, 0, 0);
@@ -57,12 +57,27 @@ namespace MoodSimBackend.Services
                 var location = GetLocationForEvent(evt);
                 _observationService.UpdateLocation(location.X, location.Y, location.Posture);
 
-                // 2. If it's a clip event, use precomputed emotion data
-                Observation observation;
+                // 1.5 Update sensors from the event
+                if (evt.Sensors != null)
+                {
+                    _observationService.UpdateSensors(
+                        tvOn: evt.Sensors.TvOn,
+                        laptopOn: evt.Sensors.LaptopOn,
+                        phoneActive: evt.Sensors.PhoneActive,
+                        voiceIntensity: evt.Sensors.VoiceIntensity,
+                        walkingSpeed: evt.Sensors.WalkingSpeed,
+                        doorSlamDetected: evt.Sensors.DoorSlamDetected,
+                        doorSlamIntensity: evt.Sensors.DoorSlamIntensity,
+                        isAlone: true
+                    );
+                }
 
+                // ✅ Initialize observation to null
+                Observation observation = null;
+
+                // 2. If it's a clip event, use precomputed emotion data
                 if (evt.IsClip && evt.ClipData != null)
                 {
-                    // Use precomputed clip data
                     observation = _observationService.CollectObservation(
                         dominantEmotion: evt.ClipData.DominantEmotion,
                         avgConfidence: evt.ClipData.AvgConfidence,
@@ -81,8 +96,18 @@ namespace MoodSimBackend.Services
                 }
                 else
                 {
-                    // For regular events, derive emotion from activity
-                    var baseEmotion = GetEmotionForActivity(evt.ActivityId);
+                    // Get current observation for sensor data (before emotion assignment)
+                    var sensorObservation = _observationService.CollectObservation();
+
+                    // Guess activity from sensors
+                    var guesser = new ActivityGuesser();
+                    var guessedActivity = guesser.GuessActivity(sensorObservation);
+                    var confidence = guesser.GetConfidence(guessedActivity, sensorObservation);
+
+                    Console.WriteLine($"   🧠 Guessed Activity: {guessedActivity} ({confidence:P0})");
+
+                    // Use the guessed activity to look up emotion
+                    var baseEmotion = GetEmotionForActivity(guessedActivity);
                     var baseConfidence = 0.6f;
 
                     // Apply personality modifier (Big Five)
@@ -139,7 +164,6 @@ namespace MoodSimBackend.Services
                 EndTime = currentTime
             };
         }
-
         private (int X, int Y, string Posture) GetLocationForEvent(SimulationEvent evt)
         {
             // Map each event to a room and posture
@@ -211,8 +235,17 @@ namespace MoodSimBackend.Services
         {
             try
             {
+                Console.WriteLine("📁 SAVING LOG TO FILE...");
                 var logPath = Path.Combine(Directory.GetCurrentDirectory(), "simulation_logs");
-                Directory.CreateDirectory(logPath);
+                Console.WriteLine($"   Current Directory: {Directory.GetCurrentDirectory()}");
+                Console.WriteLine($"   Full log path: {logPath}");
+
+                // Create directory if it doesn't exist
+                if (!Directory.Exists(logPath))
+                {
+                    Console.WriteLine("   Creating directory...");
+                    Directory.CreateDirectory(logPath);
+                }
 
                 var fileName = $"simulation_{DateTime.Now:yyyyMMdd_HHmmss}.json";
                 var filePath = Path.Combine(logPath, fileName);
@@ -246,7 +279,8 @@ namespace MoodSimBackend.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"⚠️ Error saving log: {ex.Message}");
-            }
+                Console.WriteLine($"❌ STACK: {ex.StackTrace}");
+            }   
         }
     }
 
@@ -272,5 +306,4 @@ namespace MoodSimBackend.Services
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
     }
-    
 }
