@@ -1,0 +1,860 @@
+{
+  "anger": [
+    {
+      "total_clips": 23,
+      "duration": 110,
+      "avg_confidence": 0.653,
+      "distribution": {
+        "anger": 11,
+        "frustration": 6,
+        "neutral": 3,
+        "excited": 2,
+        "sadness": 1
+      },
+      "filename": "Ses01F_impro01.avi",
+      "dominant_emotion": "anger"
+    },
+    {
+      "total_clips": 44,
+      "duration": 215,
+      "avg_confidence": 0.686,
+      "distribution": {
+        "anger": 16,
+        "frustration": 10,
+        "neutral": 9,
+        "excited": 6,
+        "happiness": 2,
+        "sadness": 1
+      },
+      "filename": "Ses01F_impro05.avi",
+      "dominant_emotion": "anger"
+    },
+    {
+      "total_clips": 31,
+      "duration": 150,
+      "avg_confidence": 0.694,
+      "distribution": {
+        "anger": 20,
+        "frustration": 5,
+        "sadness": 3,
+        "excited": 2,
+        "neutral": 1
+      },
+      "filename": "Ses01F_script01_2.avi",
+      "dominant_emotion": "anger"
+    },
+    {
+      "total_clips": 64,
+      "duration": 315,
+      "avg_confidence": 0.713,
+      "distribution": {
+        "anger": 29,
+        "excited": 14,
+        "frustration": 9,
+        "happiness": 5,
+        "neutral": 4,
+        "sadness": 3
+      },
+      "filename": "Ses01F_script03_2.avi",
+      "dominant_emotion": "anger"
+    },
+    {
+      "total_clips": 34,
+      "duration": 165,
+      "avg_confidence": 0.675,
+      "distribution": {
+        "anger": 16,
+        "frustration": 11,
+        "excited": 5,
+        "sadness": 2
+      },
+      "filename": "Ses01M_impro01.avi",
+      "dominant_emotion": "anger"
+    },
+    {
+      "total_clips": 42,
+      "duration": 205,
+      "avg_confidence": 0.691,
+      "distribution": {
+        "anger": 14,
+        "frustration": 11,
+        "neutral": 7,
+        "excited": 7,
+        "sadness": 2,
+        "happiness": 1
+      },
+      "filename": "Ses01M_impro05.avi",
+      "dominant_emotion": "anger"
+    },
+    {
+      "total_clips": 86,
+      "duration": 425,
+      "avg_confidence": 0.712,
+      "distribution": {
+        "anger": 31,
+        "frustration": 24,
+        "sadness": 20,
+        "neutral": 8,
+        "excited": 3
+      },
+      "filename": "Ses01M_script01_1.avi",
+      "dominant_emotion": "anger"
+    },
+    {
+      "total_clips": 69,
+      "duration": 340,
+      "avg_confidence": 0.7,
+      "distribution": {
+        "anger": 40,
+        "excited": 14,
+        "frustration": 7,
+        "sadness": 5,
+        "neutral": 2,
+        "happiness": 1
+      },
+      "filename": "Ses01M_script03_2.avi",
+      "dominant_emotion": "anger"
+    },
+    {
+      "total_clips": 51,
+      "duration": 250,
+      "avg_confidence": 0.696,
+      "distribution": {
+        "anger": 24,
+        "excited": 13,
+        "frustration": 11,
+        "neutral": 2,
+        "sadness": 1
+      },
+      "filename": "Ses02F_script03_2.avi",
+      "dominant_emotion": "anger"
+    },
+    {
+      "total_clips": 52,
+      "duration": 255,
+      "avg_confidence": 0.68,
+      "distribution": {
+        "anger": 26,
+        "excited": 13,
+        "frustration": 6,
+        "happiness": 4,
+        "sadness": 2,
+        "neutral": 1
+      },
+      "filename": "Ses02M_script03_2.avi",
+      "dominant_emotion": "anger"
+    }
+  ],
+  "sadness": [
+    {
+      "total_clips": 42,
+      "duration": 205,
+      "avg_confidence": 0.726,
+      "distribution": {
+        "sadness": 35,
+        "neutral": 4,
+        "happiness": 2,
+        "frustration": 1
+      },
+      "filename": "Ses01F_impro02.avi",
+      "dominant_emotion": "sadness"
+    },
+    {
+      "total_clips": 64,
+      "duration": 315,
+      "avg_confidence": 0.713,
+      "distribution": {
+        "sadness": 46,
+        "happiness": 10,
+        "neutral": 7,
+        "frustration": 1
+      },
+      "filename": "Ses01F_impro06.avi",
+      "dominant_emotion": "sadness"
+    },
+    {
+      "total_clips": 94,
+      "duration": 465,
+      "avg_confidence": 0.714,
+      "distribution": {
+        "sadness": 54,
+        "happiness": 16,
+        "neutral": 14,
+        "frustration": 5,
+        "excited": 4,
+        "anger": 1
+      },
+      "filename": "Ses01F_script01_3.avi",
+      "dominant_emotion": "sadness"
+    },
+    {
+      "total_clips": 97,
+      "duration": 480,
+      "avg_confidence": 0.704,
+      "distribution": {
+        "sadness": 33,
+        "frustration": 20,
+        "neutral": 15,
+        "excited": 11,
+        "anger": 10,
+        "happiness": 8
+      },
+      "filename": "Ses01F_script02_2.avi",
+      "dominant_emotion": "sadness"
+    },
+    {
+      "total_clips": 45,
+      "duration": 220,
+      "avg_confidence": 0.705,
+      "distribution": {
+        "sadness": 36,
+        "excited": 3,
+        "neutral": 3,
+        "frustration": 2,
+        "anger": 1
+      },
+      "filename": "Ses01M_impro02.avi",
+      "dominant_emotion": "sadness"
+    },
+    {
+      "total_clips": 50,
+      "duration": 245,
+      "avg_confidence": 0.693,
+      "distribution": {
+        "sadness": 37,
+        "happiness": 6,
+        "neutral": 5,
+        "frustration": 2
+      },
+      "filename": "Ses01M_impro06.avi",
+      "dominant_emotion": "sadness"
+    },
+    {
+      "total_clips": 105,
+      "duration": 520,
+      "avg_confidence": 0.721,
+      "distribution": {
+        "sadness": 69,
+        "happiness": 21,
+        "excited": 7,
+        "neutral": 4,
+        "frustration": 3,
+        "anger": 1
+      },
+      "filename": "Ses01M_script01_3.avi",
+      "dominant_emotion": "sadness"
+    },
+    {
+      "total_clips": 110,
+      "duration": 545,
+      "avg_confidence": 0.702,
+      "distribution": {
+        "sadness": 35,
+        "frustration": 19,
+        "anger": 18,
+        "neutral": 17,
+        "excited": 13,
+        "happiness": 8
+      },
+      "filename": "Ses01M_script02_2.avi",
+      "dominant_emotion": "sadness"
+    },
+    {
+      "total_clips": 43,
+      "duration": 210,
+      "avg_confidence": 0.716,
+      "distribution": {
+        "sadness": 28,
+        "frustration": 5,
+        "happiness": 5,
+        "neutral": 3,
+        "anger": 1,
+        "excited": 1
+      },
+      "filename": "Ses02F_impro02.avi",
+      "dominant_emotion": "sadness"
+    },
+    {
+      "total_clips": 45,
+      "duration": 220,
+      "avg_confidence": 0.714,
+      "distribution": {
+        "sadness": 29,
+        "happiness": 10,
+        "neutral": 3,
+        "excited": 2,
+        "anger": 1
+      },
+      "filename": "Ses02F_impro06.avi",
+      "dominant_emotion": "sadness"
+    },
+    {
+      "total_clips": 73,
+      "duration": 360,
+      "avg_confidence": 0.728,
+      "distribution": {
+        "sadness": 34,
+        "happiness": 22,
+        "excited": 8,
+        "frustration": 7,
+        "neutral": 2
+      },
+      "filename": "Ses02F_script01_3.avi",
+      "dominant_emotion": "sadness"
+    },
+    {
+      "total_clips": 84,
+      "duration": 415,
+      "avg_confidence": 0.718,
+      "distribution": {
+        "sadness": 19,
+        "frustration": 17,
+        "happiness": 16,
+        "anger": 15,
+        "excited": 11,
+        "neutral": 6
+      },
+      "filename": "Ses02F_script02_2.avi",
+      "dominant_emotion": "sadness"
+    },
+    {
+      "total_clips": 38,
+      "duration": 185,
+      "avg_confidence": 0.715,
+      "distribution": {
+        "sadness": 27,
+        "happiness": 8,
+        "frustration": 1,
+        "neutral": 1,
+        "excited": 1
+      },
+      "filename": "Ses02M_impro02.avi",
+      "dominant_emotion": "sadness"
+    },
+    {
+      "total_clips": 52,
+      "duration": 255,
+      "avg_confidence": 0.709,
+      "distribution": {
+        "sadness": 41,
+        "happiness": 7,
+        "neutral": 3,
+        "excited": 1
+      },
+      "filename": "Ses02M_impro06.avi",
+      "dominant_emotion": "sadness"
+    },
+    {
+      "total_clips": 79,
+      "duration": 390,
+      "avg_confidence": 0.728,
+      "distribution": {
+        "sadness": 41,
+        "happiness": 22,
+        "excited": 10,
+        "frustration": 4,
+        "neutral": 2
+      },
+      "filename": "Ses02M_script01_3.avi",
+      "dominant_emotion": "sadness"
+    },
+    {
+      "total_clips": 64,
+      "duration": 315,
+      "avg_confidence": 0.683,
+      "distribution": {
+        "sadness": 37,
+        "excited": 10,
+        "happiness": 10,
+        "neutral": 4,
+        "frustration": 3
+      },
+      "filename": "Ses03F_impro02.avi",
+      "dominant_emotion": "sadness"
+    }
+  ],
+  "happiness": [
+    {
+      "total_clips": 25,
+      "duration": 120,
+      "avg_confidence": 0.754,
+      "distribution": {
+        "happiness": 18,
+        "excited": 5,
+        "neutral": 1,
+        "sadness": 1
+      },
+      "filename": "Ses01F_impro03.avi",
+      "dominant_emotion": "happiness"
+    },
+    {
+      "total_clips": 84,
+      "duration": 415,
+      "avg_confidence": 0.694,
+      "distribution": {
+        "happiness": 19,
+        "frustration": 17,
+        "anger": 15,
+        "excited": 14,
+        "sadness": 12,
+        "neutral": 7
+      },
+      "filename": "Ses02M_script02_2.avi",
+      "dominant_emotion": "happiness"
+    }
+  ],
+  "neutral": [
+    {
+      "total_clips": 41,
+      "duration": 200,
+      "avg_confidence": 0.674,
+      "distribution": {
+        "neutral": 17,
+        "frustration": 13,
+        "anger": 5,
+        "excited": 3,
+        "happiness": 2,
+        "sadness": 1
+      },
+      "filename": "Ses01F_impro04.avi",
+      "dominant_emotion": "neutral"
+    },
+    {
+      "total_clips": 59,
+      "duration": 290,
+      "avg_confidence": 0.66,
+      "distribution": {
+        "neutral": 18,
+        "frustration": 18,
+        "sadness": 9,
+        "excited": 6,
+        "happiness": 6,
+        "anger": 2
+      },
+      "filename": "Ses02F_impro04.avi",
+      "dominant_emotion": "neutral"
+    },
+    {
+      "total_clips": 56,
+      "duration": 275,
+      "avg_confidence": 0.7,
+      "distribution": {
+        "neutral": 25,
+        "frustration": 11,
+        "excited": 9,
+        "anger": 6,
+        "happiness": 3,
+        "sadness": 2
+      },
+      "filename": "Ses02F_impro05.avi",
+      "dominant_emotion": "neutral"
+    },
+    {
+      "total_clips": 42,
+      "duration": 205,
+      "avg_confidence": 0.714,
+      "distribution": {
+        "neutral": 22,
+        "excited": 9,
+        "frustration": 6,
+        "happiness": 5
+      },
+      "filename": "Ses02F_impro08.avi",
+      "dominant_emotion": "neutral"
+    },
+    {
+      "total_clips": 50,
+      "duration": 245,
+      "avg_confidence": 0.693,
+      "distribution": {
+        "neutral": 20,
+        "frustration": 17,
+        "anger": 6,
+        "excited": 5,
+        "happiness": 2
+      },
+      "filename": "Ses02M_impro05.avi",
+      "dominant_emotion": "neutral"
+    },
+    {
+      "total_clips": 45,
+      "duration": 220,
+      "avg_confidence": 0.704,
+      "distribution": {
+        "neutral": 22,
+        "excited": 17,
+        "happiness": 3,
+        "sadness": 2,
+        "frustration": 1
+      },
+      "filename": "Ses02M_impro08.avi",
+      "dominant_emotion": "neutral"
+    }
+  ],
+  "excited": [
+    {
+      "total_clips": 29,
+      "duration": 140,
+      "avg_confidence": 0.732,
+      "distribution": {
+        "excited": 17,
+        "happiness": 10,
+        "neutral": 2
+      },
+      "filename": "Ses01F_impro07.avi",
+      "dominant_emotion": "excited"
+    },
+    {
+      "total_clips": 67,
+      "duration": 330,
+      "avg_confidence": 0.716,
+      "distribution": {
+        "excited": 25,
+        "neutral": 13,
+        "frustration": 13,
+        "happiness": 8,
+        "sadness": 4,
+        "anger": 4
+      },
+      "filename": "Ses01F_script02_1.avi",
+      "dominant_emotion": "excited"
+    },
+    {
+      "total_clips": 57,
+      "duration": 280,
+      "avg_confidence": 0.719,
+      "distribution": {
+        "excited": 29,
+        "happiness": 19,
+        "frustration": 5,
+        "neutral": 3,
+        "anger": 1
+      },
+      "filename": "Ses01F_script03_1.avi",
+      "dominant_emotion": "excited"
+    },
+    {
+      "total_clips": 32,
+      "duration": 155,
+      "avg_confidence": 0.747,
+      "distribution": {
+        "excited": 28,
+        "happiness": 2,
+        "sadness": 1,
+        "neutral": 1
+      },
+      "filename": "Ses01M_impro03.avi",
+      "dominant_emotion": "excited"
+    },
+    {
+      "total_clips": 43,
+      "duration": 210,
+      "avg_confidence": 0.736,
+      "distribution": {
+        "excited": 30,
+        "happiness": 11,
+        "sadness": 1,
+        "neutral": 1
+      },
+      "filename": "Ses01M_impro07.avi",
+      "dominant_emotion": "excited"
+    },
+    {
+      "total_clips": 82,
+      "duration": 405,
+      "avg_confidence": 0.707,
+      "distribution": {
+        "excited": 29,
+        "frustration": 15,
+        "sadness": 14,
+        "neutral": 11,
+        "happiness": 7,
+        "anger": 6
+      },
+      "filename": "Ses01M_script02_1.avi",
+      "dominant_emotion": "excited"
+    },
+    {
+      "total_clips": 61,
+      "duration": 300,
+      "avg_confidence": 0.756,
+      "distribution": {
+        "excited": 32,
+        "happiness": 21,
+        "sadness": 3,
+        "frustration": 2,
+        "neutral": 2,
+        "anger": 1
+      },
+      "filename": "Ses01M_script03_1.avi",
+      "dominant_emotion": "excited"
+    },
+    {
+      "total_clips": 51,
+      "duration": 250,
+      "avg_confidence": 0.738,
+      "distribution": {
+        "excited": 27,
+        "happiness": 23,
+        "anger": 1
+      },
+      "filename": "Ses02F_impro03.avi",
+      "dominant_emotion": "excited"
+    },
+    {
+      "total_clips": 42,
+      "duration": 205,
+      "avg_confidence": 0.732,
+      "distribution": {
+        "excited": 32,
+        "happiness": 8,
+        "frustration": 1,
+        "neutral": 1
+      },
+      "filename": "Ses02F_impro07.avi",
+      "dominant_emotion": "excited"
+    },
+    {
+      "total_clips": 59,
+      "duration": 290,
+      "avg_confidence": 0.714,
+      "distribution": {
+        "excited": 36,
+        "neutral": 8,
+        "frustration": 6,
+        "anger": 4,
+        "happiness": 3,
+        "sadness": 2
+      },
+      "filename": "Ses02F_script02_1.avi",
+      "dominant_emotion": "excited"
+    },
+    {
+      "total_clips": 44,
+      "duration": 215,
+      "avg_confidence": 0.72,
+      "distribution": {
+        "excited": 27,
+        "happiness": 12,
+        "neutral": 4,
+        "anger": 1
+      },
+      "filename": "Ses02F_script03_1.avi",
+      "dominant_emotion": "excited"
+    },
+    {
+      "total_clips": 39,
+      "duration": 190,
+      "avg_confidence": 0.749,
+      "distribution": {
+        "excited": 20,
+        "happiness": 17,
+        "neutral": 2
+      },
+      "filename": "Ses02M_impro03.avi",
+      "dominant_emotion": "excited"
+    },
+    {
+      "total_clips": 36,
+      "duration": 175,
+      "avg_confidence": 0.72,
+      "distribution": {
+        "excited": 22,
+        "happiness": 10,
+        "sadness": 2,
+        "neutral": 1,
+        "frustration": 1
+      },
+      "filename": "Ses02M_impro07.avi",
+      "dominant_emotion": "excited"
+    },
+    {
+      "total_clips": 64,
+      "duration": 315,
+      "avg_confidence": 0.737,
+      "distribution": {
+        "excited": 44,
+        "frustration": 11,
+        "neutral": 4,
+        "sadness": 2,
+        "happiness": 2,
+        "anger": 1
+      },
+      "filename": "Ses02M_script02_1.avi",
+      "dominant_emotion": "excited"
+    },
+    {
+      "total_clips": 44,
+      "duration": 215,
+      "avg_confidence": 0.73,
+      "distribution": {
+        "excited": 31,
+        "happiness": 9,
+        "neutral": 3,
+        "anger": 1
+      },
+      "filename": "Ses02M_script03_1.avi",
+      "dominant_emotion": "excited"
+    }
+  ],
+  "frustration": [
+    {
+      "total_clips": 87,
+      "duration": 430,
+      "avg_confidence": 0.704,
+      "distribution": {
+        "frustration": 29,
+        "sadness": 20,
+        "anger": 16,
+        "neutral": 14,
+        "excited": 5,
+        "happiness": 3
+      },
+      "filename": "Ses01F_script01_1.avi",
+      "dominant_emotion": "frustration"
+    },
+    {
+      "total_clips": 39,
+      "duration": 190,
+      "avg_confidence": 0.663,
+      "distribution": {
+        "frustration": 13,
+        "neutral": 12,
+        "excited": 7,
+        "sadness": 5,
+        "happiness": 2
+      },
+      "filename": "Ses01M_impro04.avi",
+      "dominant_emotion": "frustration"
+    },
+    {
+      "total_clips": 34,
+      "duration": 165,
+      "avg_confidence": 0.695,
+      "distribution": {
+        "frustration": 13,
+        "anger": 11,
+        "sadness": 7,
+        "excited": 1,
+        "neutral": 1,
+        "happiness": 1
+      },
+      "filename": "Ses01M_script01_2.avi",
+      "dominant_emotion": "frustration"
+    },
+    {
+      "total_clips": 44,
+      "duration": 215,
+      "avg_confidence": 0.67,
+      "distribution": {
+        "frustration": 23,
+        "neutral": 7,
+        "excited": 4,
+        "sadness": 4,
+        "anger": 4,
+        "happiness": 2
+      },
+      "filename": "Ses02F_impro01.avi",
+      "dominant_emotion": "frustration"
+    },
+    {
+      "total_clips": 72,
+      "duration": 355,
+      "avg_confidence": 0.676,
+      "distribution": {
+        "frustration": 31,
+        "sadness": 16,
+        "anger": 14,
+        "neutral": 5,
+        "happiness": 4,
+        "excited": 2
+      },
+      "filename": "Ses02F_script01_1.avi",
+      "dominant_emotion": "frustration"
+    },
+    {
+      "total_clips": 25,
+      "duration": 120,
+      "avg_confidence": 0.696,
+      "distribution": {
+        "frustration": 11,
+        "anger": 11,
+        "excited": 2,
+        "neutral": 1
+      },
+      "filename": "Ses02F_script01_2.avi",
+      "dominant_emotion": "frustration"
+    },
+    {
+      "total_clips": 32,
+      "duration": 155,
+      "avg_confidence": 0.688,
+      "distribution": {
+        "frustration": 13,
+        "excited": 10,
+        "neutral": 6,
+        "anger": 2,
+        "happiness": 1
+      },
+      "filename": "Ses02M_impro01.avi",
+      "dominant_emotion": "frustration"
+    },
+    {
+      "total_clips": 44,
+      "duration": 215,
+      "avg_confidence": 0.702,
+      "distribution": {
+        "frustration": 14,
+        "excited": 9,
+        "sadness": 9,
+        "neutral": 6,
+        "happiness": 6
+      },
+      "filename": "Ses02M_impro04.avi",
+      "dominant_emotion": "frustration"
+    },
+    {
+      "total_clips": 72,
+      "duration": 355,
+      "avg_confidence": 0.677,
+      "distribution": {
+        "frustration": 19,
+        "anger": 19,
+        "sadness": 18,
+        "excited": 9,
+        "neutral": 5,
+        "happiness": 2
+      },
+      "filename": "Ses02M_script01_1.avi",
+      "dominant_emotion": "frustration"
+    },
+    {
+      "total_clips": 26,
+      "duration": 125,
+      "avg_confidence": 0.685,
+      "distribution": {
+        "frustration": 15,
+        "anger": 7,
+        "excited": 3,
+        "sadness": 1
+      },
+      "filename": "Ses02M_script01_2.avi",
+      "dominant_emotion": "frustration"
+    },
+    {
+      "total_clips": 17,
+      "duration": 80,
+      "avg_confidence": 0.669,
+      "distribution": {
+        "frustration": 6,
+        "anger": 4,
+        "excited": 3,
+        "happiness": 2,
+        "neutral": 1,
+        "sadness": 1
+      },
+      "filename": "Ses03F_impro01.avi",
+      "dominant_emotion": "frustration"
+    }
+  ]
+}
