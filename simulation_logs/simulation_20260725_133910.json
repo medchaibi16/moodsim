@@ -1,0 +1,178 @@
+{
+  "character": {
+    "Name": "Ahmed",
+    "Description": "Easily frustrated when working long hours",
+    "Openness": 0.6,
+    "Conscientiousness": 0.7,
+    "Extraversion": 0.5,
+    "Agreeableness": 0.6,
+    "Neuroticism": 0.65,
+    "BaselinePleasure": 0.2,
+    "BaselineArousal": 0.1,
+    "BaselineDominance": 0.3,
+    "Goals": [
+      {
+        "Name": "Work completion",
+        "Importance": 0.8,
+        "CurrentProgress": 0,
+        "BaselineUrgency": 0.3
+      },
+      {
+        "Name": "Rest",
+        "Importance": 0.6,
+        "CurrentProgress": 0,
+        "BaselineUrgency": 0.3
+      },
+      {
+        "Name": "Social connection",
+        "Importance": 0.5,
+        "CurrentProgress": 0,
+        "BaselineUrgency": 0.3
+      },
+      {
+        "Name": "Health",
+        "Importance": 0.7,
+        "CurrentProgress": 0,
+        "BaselineUrgency": 0.3
+      }
+    ],
+    "Concerns": [
+      {
+        "Name": "Work performance",
+        "Relevance": 0.8,
+        "CurrentSatisfaction": 0.6
+      },
+      {
+        "Name": "Physical health",
+        "Relevance": 0.7,
+        "CurrentSatisfaction": 0.6
+      },
+      {
+        "Name": "Social approval",
+        "Relevance": 0.5,
+        "CurrentSatisfaction": 0.6
+      },
+      {
+        "Name": "Personal time",
+        "Relevance": 0.6,
+        "CurrentSatisfaction": 0.6
+      }
+    ],
+    "Memory": [],
+    "CurrentState": {
+      "Pleasure": 0.2,
+      "Arousal": 0.1,
+      "Dominance": 0.3,
+      "EmotionIntensities": {
+        "anger": 0.22171946,
+        "sadness": 0.20814481,
+        "happiness": 0.28959277,
+        "frustration": 0.099547505,
+        "stress": 0.18099548,
+        "neutral": 0
+      }
+    },
+    "EmotionalHistory": []
+  },
+  "log": [
+    {
+      "time": "07:00",
+      "eventName": "Work (Focus)",
+      "duration": 120,
+      "room": "bedroom_2",
+      "posture": "sitting",
+      "emotion": "frustration",
+      "confidence": 0.95,
+      "isClip": false,
+      "clipFilename": null,
+      "distribution": {},
+      "guessedActivity": "working",
+      "guessedActivityConfidence": 0.78108966
+    },
+    {
+      "time": "09:00",
+      "eventName": "\uD83C\uDFAC Ses01F_impro02.avi",
+      "duration": 3,
+      "room": "living_room",
+      "posture": "sitting",
+      "emotion": "sadness",
+      "confidence": 0.726,
+      "isClip": true,
+      "clipFilename": "Ses01F_impro02.avi",
+      "distribution": {
+        "sadness": 35,
+        "neutral": 4,
+        "happiness": 2,
+        "frustration": 1
+      },
+      "guessedActivity": "Unknown",
+      "guessedActivityConfidence": 0
+    },
+    {
+      "time": "09:03",
+      "eventName": "Phone Scrolling",
+      "duration": 30,
+      "room": "living_room",
+      "posture": "sitting",
+      "emotion": "stress",
+      "confidence": 0.95,
+      "isClip": false,
+      "clipFilename": null,
+      "distribution": {},
+      "guessedActivity": "phone_scrolling",
+      "guessedActivityConfidence": 0.5165877
+    },
+    {
+      "time": "09:33",
+      "eventName": "\uD83C\uDFAC Ses01F_script02_1.avi",
+      "duration": 6,
+      "room": "living_room",
+      "posture": "sitting",
+      "emotion": "excited",
+      "confidence": 0.716,
+      "isClip": true,
+      "clipFilename": "Ses01F_script02_1.avi",
+      "distribution": {
+        "excited": 25,
+        "neutral": 13,
+        "frustration": 13,
+        "happiness": 8,
+        "sadness": 4,
+        "anger": 4
+      },
+      "guessedActivity": "Unknown",
+      "guessedActivityConfidence": 0
+    },
+    {
+      "time": "09:39",
+      "eventName": "Socialize",
+      "duration": 60,
+      "room": "living_room",
+      "posture": "sitting",
+      "emotion": "happiness",
+      "confidence": 0.95,
+      "isClip": false,
+      "clipFilename": null,
+      "distribution": {},
+      "guessedActivity": "reading",
+      "guessedActivityConfidence": 0.12087912
+    },
+    {
+      "time": "10:39",
+      "eventName": "Relax",
+      "duration": 60,
+      "room": "living_room",
+      "posture": "sitting",
+      "emotion": "happiness",
+      "confidence": 0.95,
+      "isClip": false,
+      "clipFilename": null,
+      "distribution": {},
+      "guessedActivity": "reading",
+      "guessedActivityConfidence": 0.12087912
+    }
+  ],
+  "startTime": "07:00",
+  "endTime": "14:00",
+  "totalEvents": 6
+}

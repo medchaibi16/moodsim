@@ -1,3 +1,4 @@
+// Place this file at: Controllers/SimulationController.cs
 using Microsoft.AspNetCore.Mvc;
 using MoodSimBackend.Models;
 using MoodSimBackend.Services;
@@ -122,6 +123,24 @@ namespace MoodSimBackend.Controllers
             var json = System.IO.File.ReadAllText(latestFile);
 
             return Ok(new { success = true, log = json });
+        }
+
+        // NEW: dedicated endpoint for the IoT handoff — movements, real actions, and commands.
+        // Returns the raw JSON directly (not nested inside a wrapper object like /log does),
+        // since this is meant for a second system to consume directly, not for UI polling logic.
+        [HttpGet("iot")]
+        public IActionResult GetIotOutput()
+        {
+            var iotPath = Path.Combine(Directory.GetCurrentDirectory(), "iot_output");
+            var latestFile = Path.Combine(iotPath, "iot_output_latest.json");
+
+            if (!System.IO.File.Exists(latestFile))
+            {
+                return Ok(new { success = false, message = "No IoT output generated yet — run a simulation first" });
+            }
+
+            var json = System.IO.File.ReadAllText(latestFile);
+            return Content(json, "application/json");
         }
     }
 }

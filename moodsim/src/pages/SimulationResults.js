@@ -7,6 +7,7 @@ const SimulationResults = () => {
   const [loading, setLoading] = useState(true);
   const [isComplete, setIsComplete] = useState(false);
   const [error, setError] = useState(null);
+  const [expandedRows, setExpandedRows] = useState(new Set());
 
   useEffect(() => {
     let pollInterval;
@@ -70,6 +71,25 @@ const SimulationResults = () => {
       stress: '#FF5722'
     };
     return colors[emotion] || '#9E9E9E';
+  };
+
+  const beatIcon = (type) => {
+    if (type === 'perception') return '👁️';
+    if (type === 'hypothesis') return '🤔';
+    if (type === 'conclusion') return '💡';
+    return '•';
+  };
+
+  const toggleRow = (index) => {
+    setExpandedRows(prev => {
+      const next = new Set(prev);
+      if (next.has(index)) {
+        next.delete(index);
+      } else {
+        next.add(index);
+      }
+      return next;
+    });
   };
 
   const goBack = () => {
@@ -143,6 +163,25 @@ const SimulationResults = () => {
         )}
       </div>
 
+      {/* Day Summary Banner — the headline result, shown prominently */}
+      {logData?.daySummary && (
+        <div style={{
+          padding: '18px 22px',
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          borderRadius: '12px',
+          marginBottom: '20px',
+          color: 'white',
+          boxShadow: '0 2px 12px rgba(102, 126, 234, 0.3)'
+        }}>
+          <div style={{ fontSize: '13px', fontWeight: '600', opacity: 0.85, marginBottom: '6px', letterSpacing: '0.5px' }}>
+            🧭 DAY SUMMARY
+          </div>
+          <div style={{ fontSize: '15px', lineHeight: '1.5' }}>
+            {logData.daySummary}
+          </div>
+        </div>
+      )}
+
       {/* Character Info */}
       {logData?.character && (
         <div style={{
@@ -152,7 +191,7 @@ const SimulationResults = () => {
           marginBottom: '20px',
           fontSize: '14px'
         }}>
-          <strong>🧑 Character:</strong> {logData.character.name} &nbsp;|&nbsp;
+          <strong>🧑 Character:</strong> {logData.character.Name || logData.character.name} &nbsp;|&nbsp;
           <strong>⏰ Day:</strong> {logData.startTime} → {logData.endTime}
         </div>
       )}
@@ -183,42 +222,83 @@ const SimulationResults = () => {
           </div>
 
           {/* Table Body */}
-          <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
-            {logData.log.map((step, index) => (
-              <div 
-                key={index}
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '70px 1fr 90px 100px 50px',
-                  gap: '8px',
-                  padding: '8px 16px',
-                  borderBottom: index < logData.log.length - 1 ? '1px solid #eee' : 'none',
-                  backgroundColor: index % 2 === 0 ? 'white' : '#fafafa',
-                  fontSize: '13px',
-                  alignItems: 'center'
-                }}
-              >
-                <span style={{ fontWeight: '500', fontSize: '12px' }}>{step.time}</span>
-                <span style={{ fontSize: '13px' }}>{step.eventName}</span>
-                <span style={{ fontSize: '12px', color: '#666' }}>{step.room}</span>
-                <span style={{
-                  backgroundColor: getEmotionColor(step.emotion),
-                  color: 'white',
-                  padding: '2px 10px',
-                  borderRadius: '12px',
-                  fontSize: '11px',
-                  fontWeight: 'bold',
-                  textAlign: 'center',
-                  display: 'inline-block',
-                  width: 'fit-content'
-                }}>
-                  {step.emotion} ({Math.round(step.confidence * 100)}%)
-                </span>
-                <span style={{ textAlign: 'center', fontSize: '14px' }}>
-                  {step.isClip ? '🎬' : ''}
-                </span>
-              </div>
-            ))}
+          <div style={{ maxHeight: '600px', overflowY: 'auto' }}>
+            {logData.log.map((step, index) => {
+              const hasReasoning = !step.isClip && step.reasoning && step.reasoning.length > 0;
+              const isExpanded = expandedRows.has(index);
+
+              return (
+                <div key={index}>
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: '70px 1fr 90px 100px 50px',
+                      gap: '8px',
+                      padding: '8px 16px',
+                      borderBottom: isExpanded ? 'none' : (index < logData.log.length - 1 ? '1px solid #eee' : 'none'),
+                      backgroundColor: index % 2 === 0 ? 'white' : '#fafafa',
+                      fontSize: '13px',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <span style={{ fontWeight: '500', fontSize: '12px' }}>{step.time}</span>
+                    <span style={{ fontSize: '13px' }}>
+                      {step.eventName}
+                      {!step.isClip && step.guessedActivity && (
+                        <div
+                          onClick={() => hasReasoning && toggleRow(index)}
+                          style={{
+                            fontSize: '11px',
+                            color: hasReasoning ? '#5a4fcf' : '#888',
+                            marginTop: '2px',
+                            cursor: hasReasoning ? 'pointer' : 'default',
+                            userSelect: 'none'
+                          }}
+                        >
+                          🧠 Predicted: {step.guessedActivity} ({Math.round((step.guessedActivityConfidence || 0) * 100)}%)
+                          {hasReasoning && (isExpanded ? ' ▲' : ' ▼ see reasoning')}
+                        </div>
+                      )}
+                    </span>
+                    <span style={{ fontSize: '12px', color: '#666' }}>{step.room}</span>
+                    <span style={{
+                      backgroundColor: getEmotionColor(step.emotion),
+                      color: 'white',
+                      padding: '2px 10px',
+                      borderRadius: '12px',
+                      fontSize: '11px',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                      display: 'inline-block',
+                      width: 'fit-content'
+                    }}>
+                      {step.emotion} ({Math.round(step.confidence * 100)}%)
+                    </span>
+                    <span style={{ textAlign: 'center', fontSize: '14px' }}>
+                      {step.isClip ? '🎬' : ''}
+                    </span>
+                  </div>
+
+                  {/* Expanded reasoning trace */}
+                  {isExpanded && hasReasoning && (
+                    <div style={{
+                      padding: '10px 16px 14px 86px',
+                      backgroundColor: index % 2 === 0 ? '#f7f6ff' : '#f2f1fb',
+                      borderBottom: index < logData.log.length - 1 ? '1px solid #eee' : 'none',
+                      fontSize: '12px',
+                      color: '#444'
+                    }}>
+                      {step.reasoning.map((beat, beatIndex) => (
+                        <div key={beatIndex} style={{ marginBottom: '4px', display: 'flex', gap: '6px' }}>
+                          <span>{beatIcon(beat.type)}</span>
+                          <span>{beat.text}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       ) : (
