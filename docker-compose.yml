@@ -20,8 +20,6 @@ services:
       - "3000:3000"
     depends_on:
       - backend
-    environment:
-      - REACT_APP_API_URL=http://host.docker.internal:5000/api
     networks:
       - moodsim-network
     # This makes host.docker.internal work on Linux

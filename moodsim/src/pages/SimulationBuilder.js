@@ -198,7 +198,7 @@ function SimulationBuilder() {
       return sensorMap[activityId] || { tvOn: false, laptopOn: false, phoneActive: false, voiceIntensity: 0.1, walkingSpeed: 0.1 };
   }
 
-  const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+  const API_BASE = process.env.REACT_APP_API_URL || '/api';
 
   fetch(`${API_BASE}/simulation/start`, {
     method: 'POST',
