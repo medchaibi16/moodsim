@@ -257,7 +257,10 @@ namespace MoodSimBackend.Services
                 StartTime = new DateTime(2026, 1, 1, _startHour, 0, 0),
                 EndTime = currentTime,
                 DaySummary = _daySummary,
-                CurrentEmotion = _currentEmotion
+                CurrentEmotion = _currentEmotion,
+                HouseCommands = houseCommands,
+                Movements = _movements,
+                Actions = _actions
             };
         }
 
@@ -458,5 +461,8 @@ namespace MoodSimBackend.Services
         public DateTime EndTime { get; set; }
         public string DaySummary { get; set; } = string.Empty;
         public CurrentEmotionResult CurrentEmotion { get; set; } = new();
+        public List<IotCommand> HouseCommands { get; set; } = new();
+        public List<MovementRecord> Movements { get; set; } = new();
+        public List<ActionRecord> Actions { get; set; } = new();
     }
 }

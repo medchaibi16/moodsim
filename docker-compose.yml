@@ -1,10 +1,22 @@
 services:
+  nour2-simulation:
+    build:
+      context: .
+      dockerfile: Dockerfile.nour2
+    container_name: nour2_smart_home
+    ports:
+      - "8889:8888"
+      - "8766:8766"
+    networks:
+      - moodsim-network
+    restart: always
+
   backend:
     build:
       context: ./MoodSimBackend
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
     environment:
       - ASPNETCORE_URLS=http://0.0.0.0:5000
     networks:
@@ -17,12 +29,11 @@ services:
       context: ./moodsim
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "127.0.0.1:8086:3000"
     depends_on:
       - backend
     networks:
       - moodsim-network
-    # This makes host.docker.internal work on Linux
     extra_hosts:
       - "host.docker.internal:host-gateway"
 

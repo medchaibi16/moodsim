@@ -1,4 +1,3 @@
-// Place this file at: Controllers/SimulationController.cs
 using Microsoft.AspNetCore.Mvc;
 using MoodSimBackend.Models;
 using MoodSimBackend.Services;
@@ -18,21 +17,7 @@ namespace MoodSimBackend.Controllers
         [HttpPost("start")]
         public async Task<IActionResult> StartSimulation([FromBody] SimulationRequest request)
         {
-            // Log the raw request body for debugging
-            try
-            {
-                // Read the raw body
-                using var reader = new StreamReader(Request.Body);
-                var rawBody = await reader.ReadToEndAsync();
-                Console.WriteLine("🔴 RAW REQUEST BODY:");
-                Console.WriteLine(rawBody);
-                Console.WriteLine("🔴🔴🔴 SIMULATION START CALLED! Events: " + (request?.Events?.Count ?? 0));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"⚠️ Error reading request body: {ex.Message}");
-            }
-
+            Console.WriteLine("🔴🔴🔴 SIMULATION START CALLED! Events: " + (request?.Events?.Count ?? 0));
 
             if (request == null || request.Events == null)
             {
@@ -41,8 +26,9 @@ namespace MoodSimBackend.Controllers
 
             try
             {
-                // 1. Create character
-                var character = CharacterFactory.CreateDefaultCharacter();
+                // 1. Create character — use whatever the frontend posted (e.g. a customized
+                // character from CharacterPage), falling back to the default if none was sent.
+                var character = request.Character ?? CharacterFactory.CreateDefaultCharacter();
 
                 // 2. Create simulation engine
                 var engine = new SimulationEngine(
@@ -56,7 +42,9 @@ namespace MoodSimBackend.Controllers
                 var result = engine.Run();
                 Console.WriteLine("   Simulation complete! Total events: " + result.TotalEvents);
 
-                // 4. Return results
+                // 4. Return results — everything the frontend needs in one round trip
+                // (log/character for the day-by-day view, daySummary/currentEmotion/
+                // houseCommands for the layer 4/5 output, movements/actions as ground truth).
                 return Ok(new
                 {
                     success = true,
@@ -64,7 +52,12 @@ namespace MoodSimBackend.Controllers
                     startTime = result.StartTime,
                     endTime = result.EndTime,
                     character = result.Character,
-                    log = result.Log
+                    log = result.Log,
+                    daySummary = result.DaySummary,
+                    currentEmotion = result.CurrentEmotion,
+                    houseCommands = result.HouseCommands,
+                    movements = result.Movements,
+                    actions = result.Actions
                 });
             }
             catch (Exception ex)
@@ -123,24 +116,6 @@ namespace MoodSimBackend.Controllers
             var json = System.IO.File.ReadAllText(latestFile);
 
             return Ok(new { success = true, log = json });
-        }
-
-        // NEW: dedicated endpoint for the IoT handoff — movements, real actions, and commands.
-        // Returns the raw JSON directly (not nested inside a wrapper object like /log does),
-        // since this is meant for a second system to consume directly, not for UI polling logic.
-        [HttpGet("iot")]
-        public IActionResult GetIotOutput()
-        {
-            var iotPath = Path.Combine(Directory.GetCurrentDirectory(), "iot_output");
-            var latestFile = Path.Combine(iotPath, "iot_output_latest.json");
-
-            if (!System.IO.File.Exists(latestFile))
-            {
-                return Ok(new { success = false, message = "No IoT output generated yet — run a simulation first" });
-            }
-
-            var json = System.IO.File.ReadAllText(latestFile);
-            return Content(json, "application/json");
         }
     }
 }

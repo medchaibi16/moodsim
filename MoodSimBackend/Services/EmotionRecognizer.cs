@@ -1,4 +1,4 @@
-﻿using Microsoft.ML.OnnxRuntime;
+using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
 using OpenCvSharp;
 using System;
@@ -43,54 +43,56 @@ namespace MoodStabilizer
         {
             _videoPath = videoPath;
             MODELS_FOLDER = GetModelsFolder();
-            
+
             Console.WriteLine("\n" + new string('=', 60));
             Console.WriteLine("Emotion Recognition System - Initialization");
             Console.WriteLine(new string('=', 60));
         }
 
         /// <summary>
-        /// Get the models folder path relative to the          mbly location
+        /// Get the models folder path relative to the assembly location.
+        /// FIX: folder is named "AImodels" (matches what's actually on disk),
+        /// not "models".
         /// </summary>
         private static string GetModelsFolder()
         {
             string assemblyPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
             string assemblyDir = Path.GetDirectoryName(assemblyPath) ?? AppDomain.CurrentDomain.BaseDirectory;
             string projectRoot = Path.GetFullPath(Path.Combine(assemblyDir, "..", "..", ".."));
-            return Path.Combine(projectRoot, "models");
+            return Path.Combine(projectRoot, "AImodels");
         }
 
         /// <summary>
-        /// Load both ONNX models from the models folder
+        /// Load both ONNX models. FIX: pulled from OnnxModelCache instead of
+        /// creating new InferenceSessions every time — models are loaded once
+        /// for the whole app's lifetime, not once per EmotionRecognizer instance.
         /// </summary>
         public bool LoadModels()
         {
             try
             {
-                Console.WriteLine("\n[1/2] Loading Audio Model...");
                 string audioModelPath = Path.Combine(MODELS_FOLDER, AUDIO_MODEL_NAME);
+                string faceModelPath = Path.Combine(MODELS_FOLDER, FACE_MODEL_NAME);
 
                 if (!File.Exists(audioModelPath))
                 {
                     Console.WriteLine($"✗ Audio model not found: {audioModelPath}");
                     return false;
                 }
-
-                _audioSession = new InferenceSession(audioModelPath);
-                Console.WriteLine($"✓ Audio model loaded: {audioModelPath}");
-                PrintModelInfo(_audioSession, "Audio Model");
-
-                Console.WriteLine("\n[2/2] Loading Face Model...");
-                string faceModelPath = Path.Combine(MODELS_FOLDER, FACE_MODEL_NAME);
-
                 if (!File.Exists(faceModelPath))
                 {
                     Console.WriteLine($"✗ Face model not found: {faceModelPath}");
                     return false;
                 }
 
-                _faceSession = new InferenceSession(faceModelPath);
-                Console.WriteLine($"✓ Face model loaded: {faceModelPath}");
+                Console.WriteLine("\nLoading models (cached after first call)...");
+                var (audioSession, faceSession) = OnnxModelCache.GetSessions(MODELS_FOLDER, AUDIO_MODEL_NAME, FACE_MODEL_NAME);
+                _audioSession = audioSession;
+                _faceSession = faceSession;
+
+                Console.WriteLine($"✓ Audio model ready: {audioModelPath}");
+                PrintModelInfo(_audioSession, "Audio Model");
+                Console.WriteLine($"✓ Face model ready: {faceModelPath}");
                 PrintModelInfo(_faceSession, "Face Model");
 
                 return true;
@@ -184,7 +186,7 @@ namespace MoodStabilizer
 
                     // Extract pixel data and normalize with ImageNet stats
                     float[][] normalized = NormalizeFrame(rgb);
-                    
+
                     // Flatten the 2D array [3][224*224] into 1D [3*224*224]
                     frames[i] = new float[3 * FRAME_WIDTH * FRAME_HEIGHT];
                     int idx = 0;
@@ -334,9 +336,10 @@ namespace MoodStabilizer
 
         public void Dispose()
         {
-            _audioSession?.Dispose();
-            _faceSession?.Dispose();
             _cachedAudioReader?.Dispose();
+            // NOTE: _audioSession / _faceSession are shared via OnnxModelCache and
+            // are intentionally NOT disposed here — disposing them here would break
+            // every other EmotionRecognizer instance sharing the same cached models.
         }
         private string? _cachedAudioPath;
         private WaveFileReader? _cachedAudioReader;
@@ -354,7 +357,7 @@ namespace MoodStabilizer
                 if (_cachedAudioReader == null || _cachedAudioPath != videoPath)
                 {
                     _cachedAudioPath = videoPath;
-                    
+
                     // Use FFmpeg to extract audio from video
                     string tempAudioPath = Path.GetTempFileName() + ".wav";
 
@@ -408,7 +411,7 @@ namespace MoodStabilizer
 
                     // Convert bytes to float samples
                     float[] audioSamples = new float[AUDIO_SAMPLES_PADDED]; // Pad to 160000
-                    
+
                     // Convert 16-bit PCM bytes to float [-1, 1]
                     for (int i = 0; i < bytesRead; i += 2)
                     {
@@ -458,6 +461,7 @@ namespace MoodStabilizer
         private float _lastConfidence = 0f;
         private string _lastAudioEmotion = "";
         private string _lastFaceEmotion = "";
+        private Dictionary<string, float> _lastDistribution = new();
 
         public float GetLastConfidence()
         {
@@ -472,6 +476,13 @@ namespace MoodStabilizer
         public string GetLastFaceEmotion()
         {
             return _lastFaceEmotion;
+        }
+
+        // Full fused probability breakdown across all 6 emotions, not just the winner —
+        // e.g. { "sadness": 0.72, "happiness": 0.10, "anger": 0.07, ... }.
+        public Dictionary<string, float> GetLastDistribution()
+        {
+            return _lastDistribution;
         }
 
         /// <summary>
@@ -516,6 +527,12 @@ namespace MoodStabilizer
             int predictedClass = fusedProbs.ToList().IndexOf(fusedProbs.Max());
             string emotion = EMOTION_LABELS[predictedClass];
             _lastConfidence = fusedProbs[predictedClass];
+
+            _lastDistribution = new Dictionary<string, float>();
+            for (int i = 0; i < EMOTION_LABELS.Length && i < fusedProbs.Length; i++)
+            {
+                _lastDistribution[EMOTION_LABELS[i]] = fusedProbs[i];
+            }
 
             // Print probabilities
             Console.WriteLine($"\n  📊 PREDICTIONS:");
