@@ -1,14 +1,29 @@
+using MoodSimBackend.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.UseUrls("http://0.0.0.0:5000");
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-builder.Services.AddControllers();  // ← ADD THIS LINE
+builder.Services.AddControllers();
+
+// Singleton — must persist across requests, since it caches an open VideoCapture
+// and a loaded EmotionRecognizer per clip (Live Demo page's 5-second-window analysis).
+builder.Services.AddSingleton<DemoClipAnalyzer>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
+        // Allow any localhost/127.0.0.1 origin, regardless of port — we've been
+        // actively remapping the frontend's host port (3000 -> 8086, and it'll
+        // likely change again once the reverse proxy is in front of this), and
+        // hardcoding one port here just breaks CORS silently every time it moves.
+        policy.SetIsOriginAllowed(origin =>
+        {
+            if (!Uri.TryCreate(origin, UriKind.Absolute, out var uri)) return false;
+            return uri.Host == "localhost" || uri.Host == "127.0.0.1";
+        })
               .AllowAnyHeader()
               .AllowAnyMethod();
     });

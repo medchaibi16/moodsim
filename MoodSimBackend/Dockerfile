@@ -1,4 +1,5 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0
+RUN apt-get update && apt-get install -y ffmpeg libgtk-3-0 libfreetype6 && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY *.csproj .
 RUN dotnet restore

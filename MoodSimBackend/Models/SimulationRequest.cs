@@ -14,6 +14,11 @@ namespace MoodSimBackend.Models
 
         [JsonPropertyName("events")]
         public List<SimulationEvent> Events { get; set; }
+
+        // Optional — if the frontend posts a customized character, use it.
+        // Falls back to CharacterFactory.CreateDefaultCharacter() when absent (see SimulationController).
+        [JsonPropertyName("character")]
+        public CharacterProfile? Character { get; set; }
     }
 
     public class SimulationEvent
@@ -39,9 +44,13 @@ namespace MoodSimBackend.Models
         [JsonPropertyName("activityId")]
         public string ActivityId { get; set; }
 
-        // ✅ NEW: Sensor data
+        // Optional — no sensors for clip events (nothing to sense during a clip).
+        // SimulationEngine already handles this as nullable everywhere (evt.Sensors?.TvOn ?? false);
+        // this was just never declared nullable here, which made ASP.NET's model binder treat it
+        // as implicitly required (since <Nullable>enable</Nullable> is set) and reject any event
+        // that omits it.
         [JsonPropertyName("sensors")]
-        public SensorData Sensors { get; set; }
+        public SensorData? Sensors { get; set; }
     }
 
     public class SensorData
