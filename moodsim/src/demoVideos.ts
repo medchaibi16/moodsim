@@ -1,98 +1,38 @@
+import clip07 from "./assets/demo/Ses01F_impro07.mp4";
+import clip08 from "./assets/demo/Ses02F_impro08.mp4";
+import clip01 from "./assets/demo/Ses01F_impro01.mp4";
+import clip02 from "./assets/demo/Ses01F_impro02.mp4";
+
+// clipKey MUST match DemoClipAnalyzer's _clipFiles keys in the backend exactly.
 export interface DemoVideo {
   key: string;
   name: string;
-  duration: string;
-  durationSec: number;
-  demo: { tag: string; icon: string; color: string; conf: number };
-  tlColors: string[];
+  src: string;
 }
 
 export const VIDEO_LIB: Record<string, DemoVideo> = {
-  marche: {
-    key: "marche",
-    name: "Morning_Park_Walk",
-    duration: "04:12",
-    durationSec: 252,
-    demo: { tag: "Happy", icon: "ic-smile", color: "var(--success)", conf: 97 },
-    tlColors: [
-      "var(--success)",
-      "var(--success)",
-      "var(--primary)",
-      "var(--success)",
-      "var(--danger)",
-      "var(--secondary)",
-      "var(--success)",
-      "var(--success)",
-    ],
-  },
-  bureau: {
-    key: "bureau",
-    name: "Office_Interview_02",
-    duration: "06:48",
-    durationSec: 408,
-    demo: { tag: "Neutral", icon: "ic-meh-scared", color: "var(--gray)", conf: 88 },
-    tlColors: [
-      "var(--secondary)",
-      "var(--danger)",
-      "var(--gray)",
-      "var(--danger)",
-      "var(--secondary)",
-      "var(--gray)",
-      "var(--danger)",
-      "var(--gray)",
-    ],
-  },
-  metro: {
-    key: "metro",
-    name: "Evening_Subway_Commute",
-    duration: "03:21",
-    durationSec: 201,
-    demo: { tag: "Sad", icon: "ic-frown", color: "var(--primary)", conf: 91 },
-    tlColors: [
-      "var(--primary)",
-      "var(--secondary)",
-      "var(--primary)",
-      "var(--danger)",
-      "var(--primary)",
-      "var(--primary)",
-      "var(--secondary)",
-      "var(--danger)",
-    ],
-  },
-  sport: {
-    key: "sport",
-    name: "Gym_Workout_Session",
-    duration: "05:56",
-    durationSec: 356,
-    demo: { tag: "Surprised", icon: "ic-smile", color: "var(--accent)", conf: 89 },
-    tlColors: [
-      "var(--accent)",
-      "var(--success)",
-      "var(--accent)",
-      "var(--success)",
-      "var(--secondary)",
-      "var(--accent)",
-      "var(--success)",
-      "var(--accent)",
-    ],
-  },
+  Ses01F_impro07: { key: "Ses01F_impro07", name: "Ses01F_impro07 — excited", src: clip07 },
+  Ses02F_impro08: { key: "Ses02F_impro08", name: "Ses02F_impro08 — neutral", src: clip08 },
+  Ses01F_impro01: { key: "Ses01F_impro01", name: "Ses01F_impro01 — anger", src: clip01 },
+  Ses01F_impro02: { key: "Ses01F_impro02", name: "Ses01F_impro02 — sadness", src: clip02 },
 };
 
-export const VIDEO_ORDER = ["marche", "bureau", "metro", "sport"];
+export const VIDEO_ORDER = ["Ses01F_impro07", "Ses02F_impro08", "Ses01F_impro01", "Ses01F_impro02"];
 
-export const DEMO_EMOTIONS = [
-  { tag: "Happy", icon: "ic-smile", color: "var(--success)" },
-  { tag: "Neutral", icon: "ic-meh-scared", color: "var(--gray)" },
-  { tag: "Sad", icon: "ic-frown", color: "var(--primary)" },
-  { tag: "Surprised", icon: "ic-smile", color: "var(--accent)" },
-];
+// Maps the backend's real emotion labels to display icon/color.
+// Icons come from IconSprite.tsx — ic-angry, ic-smile, ic-meh-scared, ic-frown all exist there.
+export const EMOTION_DISPLAY: Record<string, { icon: string; color: string; label: string }> = {
+  anger: { icon: "ic-angry", color: "var(--danger)", label: "Angry" },
+  frustration: { icon: "ic-angry", color: "var(--secondary)", label: "Frustrated" },
+  excited: { icon: "ic-smile", color: "var(--accent)", label: "Excited" },
+  neutral: { icon: "ic-meh-scared", color: "var(--gray)", label: "Neutral" },
+  sadness: { icon: "ic-frown", color: "var(--primary)", label: "Sad" },
+  happiness: { icon: "ic-smile", color: "var(--success)", label: "Happy" },
+};
 
 export function fmtTime(sec: number): string {
-  const m = Math.floor(sec / 60)
-    .toString()
-    .padStart(2, "0");
-  const s = Math.floor(sec % 60)
-    .toString()
-    .padStart(2, "0");
+  if (!isFinite(sec) || sec < 0) sec = 0;
+  const m = Math.floor(sec / 60).toString().padStart(2, "0");
+  const s = Math.floor(sec % 60).toString().padStart(2, "0");
   return `${m}:${s}`;
 }

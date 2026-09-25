@@ -1,0 +1,49 @@
+# ---- AI models / heavy binaries ----
+*.onnx
+*.pt
+*.pth
+*.h5
+*.pb
+*.tflite
+*.bin
+*.model
+*.ckpt
+*.safetensors
+AImodels/
+Models/
+Assets/models/
+
+# ---- .NET build artifacts ----
+bin/
+obj/
+*.dll
+*.pdb
+*.exe
+*.user
+
+# ---- Node / React ----
+node_modules/
+build/
+dist/
+.cache/
+
+# ---- Python ----
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# ---- Logs & temp ----
+simulation_logs/
+*.log
+transferring/
+_backup_root/
+CACHED/
+'[backend'
+'[nour2-simulation'
+ms_project.zip
+
+# ---- OS / IDE ----
+.DS_Store
+.vscode/
+.idea/
